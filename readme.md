@@ -1,1 +1,1 @@
-# Simple CRUD with a database conection
+# Simple CRUD with a database connection
