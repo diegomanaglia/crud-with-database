@@ -70,8 +70,12 @@ async function saveUser() {
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
+        } else {
+            const data = await response.json();
+            console.log(data);
+            window.location.reload();
         }
-        window.location.reload();
+        
     } catch (error) {
         console.error('Error:', error);
     }

@@ -5,8 +5,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(process.env.HOST_MYSQL, process.env.USER_MYSQL, process.env.PASSWORD_MYSQL, process.env.DATABASE_MYSQL);
-
 // Creates connection
 const connectionConfig = {
   host: process.env.HOST_MYSQL,
