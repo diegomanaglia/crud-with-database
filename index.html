@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic CRUD with database - Diego Managlia</title>
+    <title>CRUD with database - Diego Managlia</title>
     <link rel="stylesheet" href="./styles.css" class="css">
     <script src="./scripts.js" defer></script>
 </head>
+
 <body>
     <div class="container">
         <div class="box">
-            <h2>Basic CRUD with database</h2>
+            <h2>CRUD with database</h2>
             <form id="form" action="submit">
                 <input id="name" type="text" placeholder="Your name...">
                 <input id="email" type="email" placeholder="Your email...">
@@ -28,6 +30,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tbody_info">
@@ -37,7 +40,30 @@
             </div>
         </div>
 
+        <!-- Modal for editing user -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeModal">&times;</span>
+                <h2>Edit User</h2>
+                <form id="editForm">
+                    <input type="hidden" id="userId">
+
+                    <label for="userName">Name</label>
+                    <input type="text" id="userName" required>
+
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" required>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="save-btn" onclick="saveUser()">Save</button>
+                        <button type="button" class="cancel-btn" id="cancelModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
     </div>
 </body>
+
 </html>
