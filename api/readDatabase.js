@@ -1,16 +1,25 @@
-import { createPool } from '@vercel/postgres';
-require('dotenv').config();
+// Backend route that gets all users from database
 
-const pool = createPool({
-    connectionString: process.env.psql,
-});
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
 
-module.exports = async (req, res) => {
+dotenv.config();
+
+// Creates connection
+const connectionConfig = {
+  host: process.env.HOST_MYSQL,
+  user: process.env.USER_MYSQL,
+  password: process.env.PASSWORD_MYSQL,
+  database: process.env.DATABASE_MYSQL,
+  connectTimeout: 60000
+};
+
+export default async (req, res) => {
     try {
-        const lista = await pool.sql`SELECT * FROM exemplo;`;
-        res.status(200).send(lista.rows);
+        const connection = await mysql.createConnection(connectionConfig);
+        const [rows] = await connection.execute('SELECT * FROM users');
+        res.status(200).send(rows);
     } catch (error) {
         res.status(500).send(error);
     }
-    
-}
+};

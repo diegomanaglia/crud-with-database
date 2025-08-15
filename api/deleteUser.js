@@ -1,3 +1,5 @@
+// Backend route that deletes a user from database
+
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
@@ -12,12 +14,12 @@ const connectionConfig = {
   connectTimeout: 60000
 };
 
-// Function that inserts a user
+// Function that deletes a user
 export default async (req, res) => {
-  const { name, email } = req.body;
+  const { id } = req.query;
 
-  if (!name || !email) {
-    return res.status(400).json({ error: 'Name and email are required' });
+  if (!id) {
+    return res.status(400).json({ error: 'ID is required' });
   }
 
   let connection;
@@ -25,16 +27,16 @@ export default async (req, res) => {
     // Creates connection
     connection = await mysql.createConnection(connectionConfig);
 
-    // Inserts user into table
+    // Deletes from table
     const [result] = await connection.execute(
-      'INSERT INTO users (name, email) VALUES (?, ?)',
-      [name, email]
+      'DELETE FROM users WHERE id=?',
+      [id]
     );
 
-    res.status(200).json({ message: 'User created successfully!', id: result.insertId });
+    res.status(200).json({ message: 'User deleted successfully!', id: result.insertId });
   } catch (error) {
-    console.error('Error inserting user:', error);
-    res.status(500).json({ error: 'Error inserting user' });
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Error deleting user' });
   } finally {
     if (connection) await connection.end();
   }
